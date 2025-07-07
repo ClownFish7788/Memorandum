@@ -1,0 +1,13 @@
+html, body, #app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* 关键：彻底不允许页面出现滚动条 */
+}
+.el-menu-item,
+.el-sub-menu__title,
+.el-popper .el-menu-item {
+  border-radius: 5px !important;
+  height: 25px !important;
+  margin-top: 5px !important;
+}
