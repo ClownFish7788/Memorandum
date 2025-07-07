@@ -28,7 +28,7 @@ const list = defineModel()
 </script>
 
 <template>
-  <div class="element" :class="{ selected: props.selected }" :style="{ width: props.width  }" @click="emit('select', props.tabId)" ref="tab">
+  <div class="element" :class="{ selected: props.selected }" :style="{ width: props.width  }" @click="emit('select', props.tabId, list, props.title)" ref="tab">
     <div class="left">
       <el-avatar :src="picUrl" />
       <h3>{{ props.title }}</h3>

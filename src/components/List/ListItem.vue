@@ -81,7 +81,7 @@ defineExpose({
         v-else></el-input>
       </div>
       <div class="right">
-        {{ item.count }}
+        {{ item.content.length }}
       </div>
     </el-main>
   </el-container>

@@ -2,13 +2,19 @@
 import ElementCom from './ElementCom.vue'
 import { ref } from 'vue'
 
-// 选中效果
+// 选中效果 -> 全局
+import { useGlobalStore } from '@/stores/index'
+const globalStore = useGlobalStore()
 const selected = ref('')
-const handleSelect = (id) => {
+const handleSelect = (id, item, name) => {
   if(id === selected.value){
     selected.value = ''
     return
   }
+  globalStore.getGlobalType({
+    name: name,
+    content: item
+  })
   selected.value = id
 }
 

@@ -7,10 +7,13 @@ import { useListStore } from '@/stores/index'
 const listStore = useListStore()
 
 
-// 控制点击效果
+// 控制点击效果->全局
+import { useGlobalStore } from '@/stores/index'
+const globalStore = useGlobalStore()
 const select = ref()
-const handleSelect = (id) => {
-  select.value = id
+const handleSelect = (item) => {
+  select.value = item.id
+  globalStore.getGlobalType(item)
 }
 
 // 实现拖拽效果
@@ -89,7 +92,7 @@ const showInfo = () => {
         :item="item"
         :key="item.id"
         :selected="select === item.id"
-        @selected="handleSelect"
+        @selected="handleSelect(item)"
         draggable="true"
         @dragenter="onDragenter"
         @dragover="onDragover"

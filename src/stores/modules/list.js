@@ -55,6 +55,14 @@ export const useListStore = defineStore('list-store', () => {
     list.value[index] = obj
     return true
   }
+  //添加清单
+  const addListItem = (id, item) => {
+    const index = list.value.findIndex(item => item.id === id)
+    list.value[index].content.unshift({
+      id: item.id,
+      name: item.name
+    })
+  }
   return {
     list,
     changeOrder,
@@ -62,7 +70,8 @@ export const useListStore = defineStore('list-store', () => {
     searchItem,
     rename,
     deleteNode,
-    editNode
+    editNode,
+    addListItem
   }
 },
 {

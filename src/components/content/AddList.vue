@@ -102,7 +102,7 @@ const addItem = () => {
     flag: selectedFlag.value
   }
   itemStore.addItem(item)
-  show.value = true
+  show.value = false
 }
 
 // 监听数据给提交键加禁用效果

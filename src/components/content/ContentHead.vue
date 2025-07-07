@@ -5,7 +5,7 @@ import { useGlobalStore } from '@/stores/index'
 const globalStore = useGlobalStore()
 
 // 添加列表
-const show = ref(true)
+const show = ref(false)
 
 </script>
 
