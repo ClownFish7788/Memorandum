@@ -14,9 +14,15 @@ export const useItemStore = defineStore('item-store', () => {
     listStore.addListItem(item.group, item)
   }
 
+  const findItem = (list) => {
+    if(!Array.isArray(list) || list.length === 0) return []
+    const findItemList = itemList.value.filter(item => list.includes(item.id))
+    return findItemList
+  }
   return {
     itemList,
-    addItem
+    addItem,
+    findItem
   }
 },
 {

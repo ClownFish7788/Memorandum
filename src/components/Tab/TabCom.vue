@@ -1,26 +1,28 @@
 <script setup>
 import ElementCom from './ElementCom.vue'
-import { ref } from 'vue'
+import { ref, onUpdated } from 'vue'
 
 // 选中效果 -> 全局
 import { useGlobalStore } from '@/stores/index'
 const globalStore = useGlobalStore()
 const selected = ref('')
-const handleSelect = (id, item, name) => {
+const handleSelect = (id, item) => {
   if(id === selected.value){
     selected.value = ''
     return
   }
-  globalStore.getGlobalType({
-    name: name,
-    content: item
-  })
+  item.type = 'tab'
+  globalStore.getGlobalType(item)
   selected.value = id
 }
 
 // tab内容管理
 import { useTabStore } from '@/stores'
 const tabStore = useTabStore()
+
+onUpdated(() => {
+  console.log(1)
+})
 </script>
 
 <template>

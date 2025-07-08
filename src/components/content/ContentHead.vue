@@ -14,7 +14,7 @@ const show = ref(false)
     <h2 class="type">{{ globalStore.globalType }}</h2>
     <div class="left">
       <button class="add" @click="show = true">+</button>
-      <div class="count">{{ globalStore.globalList.length }}</div>
+      <div class="count">{{ globalStore.globalItemList.length }}</div>
     </div>
   </div>
   <AddList v-model="show"></AddList>
