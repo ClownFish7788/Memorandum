@@ -1,6 +1,6 @@
 <script setup>
 import { Calendar, Flag, Clock } from '@element-plus/icons-vue'
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 const show = defineModel()
 
 // 单选框取消
@@ -112,6 +112,19 @@ watch([() => name.value, () => time.value], (newName, newTime) => {
   if(!/^.{1,10}$/.test(newName)) return
   console.log(newTime)
   disabled.value = false
+})
+
+// 如果当前选中为checkList设置group
+import { useGlobalStore } from '@/stores'
+const globalStore = useGlobalStore()
+const type = computed(() => globalStore.globalType)
+watch(type, (newVal) => {
+  if(newVal === 'checkList'){
+    selectedGroup.value = {
+      name : globalStore.globalName,
+      group: globalStore.globalId
+    }
+  }
 })
 </script>
 

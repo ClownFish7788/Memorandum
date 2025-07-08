@@ -1,6 +1,6 @@
 <script setup>
 import { iconList } from '@/utils/icon'
-import { ref,nextTick } from 'vue'
+import { ref,nextTick, computed } from 'vue'
 import { useListStore } from '@/stores'
 
 // icon处理
@@ -9,12 +9,11 @@ const findIcon = (name) => {
   return foundIcon ? foundIcon.icon : iconList[0].icon
 }
 
-// 点击效果
+// global->点击效果
+import { useGlobalStore } from '@/stores/index'
+const globalStore = useGlobalStore()
+const selected = computed(() => props.item.name === globalStore.globalName)
 const props = defineProps({
-  selected: {
-    type: Boolean,
-    default: false
-  },
   item: {
     type: Object
   }

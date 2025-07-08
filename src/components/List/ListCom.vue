@@ -10,9 +10,8 @@ const listStore = useListStore()
 // 控制点击效果->全局
 import { useGlobalStore } from '@/stores/index'
 const globalStore = useGlobalStore()
-const select = ref()
 const handleSelect = (item) => {
-  select.value = item.id
+  item.type = 'checkList'
   globalStore.getGlobalType(item)
 }
 
@@ -91,7 +90,6 @@ const showInfo = () => {
         v-for="item in searchList.length > 0 ? searchList : listStore.list.filter(Boolean)"
         :item="item"
         :key="item.id"
-        :selected="select === item.id"
         @selected="handleSelect(item)"
         draggable="true"
         @dragenter="onDragenter"

@@ -11,7 +11,7 @@ const show = ref(false)
 
 <template>
   <div class="header">
-    <h2 class="type">{{ globalStore.globalType }}</h2>
+    <h2 class="type">{{ globalStore.globalName }}</h2>
     <div class="left">
       <button class="add" @click="show = true">+</button>
       <div class="count">{{ globalStore.globalItemList.length }}</div>

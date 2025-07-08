@@ -1,20 +1,17 @@
 <script setup>
-import { ref, defineProps } from 'vue'
+import { ref, defineProps, computed } from 'vue'
 const picUrl = ref('')
+
+// 通过store来实现选中
+import { useGlobalStore } from '@/stores/index'
+const globalStore = useGlobalStore()
+const selected = computed(() => globalStore.globalType === props.title)
 
 // 获取宽度
 const props = defineProps({
   width: {
     type: String,
     default: '280px'
-  },
-  tabId: {
-    type: String,
-    required: true
-  },
-  selected: {
-    type: Boolean,
-    default: false
   },
   title: {
     type: String
@@ -28,7 +25,7 @@ const list = defineModel()
 </script>
 
 <template>
-  <div class="element" :class="{ selected: props.selected }" :style="{ width: props.width  }" @click="emit('select', props.tabId, list)" ref="tab">
+  <div class="element" :class="{ selected: selected }" :style="{ width: props.width  }" @click="emit('select', list)" ref="tab">
     <div class="left">
       <el-avatar :src="picUrl" />
       <h3>{{ props.title }}</h3>

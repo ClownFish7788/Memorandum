@@ -1,28 +1,20 @@
 <script setup>
 import ElementCom from './ElementCom.vue'
-import { ref, onUpdated } from 'vue'
+import { ref } from 'vue'
 
 // 选中效果 -> 全局
 import { useGlobalStore } from '@/stores/index'
 const globalStore = useGlobalStore()
 const selected = ref('')
-const handleSelect = (id, item) => {
-  if(id === selected.value){
-    selected.value = ''
-    return
-  }
+const handleSelect = (item) => {
   item.type = 'tab'
   globalStore.getGlobalType(item)
-  selected.value = id
 }
 
 // tab内容管理
 import { useTabStore } from '@/stores'
 const tabStore = useTabStore()
 
-onUpdated(() => {
-  console.log(1)
-})
 </script>
 
 <template>
@@ -30,16 +22,14 @@ onUpdated(() => {
     <div class="top">
       <ElementCom
       width="120px"
-      tabId="tab1"
-      :selected="selected === 'tab1'"
+      :selected="selected === '今天'"
       @select="handleSelect"
       title="今天"
       v-model="tabStore.today">
       </ElementCom>
       <ElementCom
       width="120px"
-      tabId="tab2"
-      :selected="selected === 'tab2'"
+      :selected="selected === '计划'"
       @select="handleSelect"
       title="计划"
       v-model="tabStore.plan">
@@ -47,8 +37,7 @@ onUpdated(() => {
     </div>
     <ElementCom
     width="260px"
-    tabId="tab3"
-    :selected="selected === 'tab3'"
+    :selected="selected === '全部'"
     class="big-tab"
     @select="handleSelect"
     title="全部"
