@@ -1,6 +1,6 @@
 <script setup>
 import { Calendar, Flag, Clock } from '@element-plus/icons-vue'
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, onMounted } from 'vue'
 const show = defineModel()
 
 // 单选框取消
@@ -107,23 +107,32 @@ const addItem = () => {
 
 // 监听数据给提交键加禁用效果
 const disabled = ref(true)
-watch([() => name.value, () => time.value], (newName, newTime) => {
-  if(newTime === null) return
-  if(!/^.{1,10}$/.test(newName)) return
-  console.log(newTime)
-  disabled.value = false
+watch([() => name.value, () => date.value], ([newName, newDate]) => {
+  const isDateVaild = newDate !== '' && newDate !== undefined && newDate !== null
+  const isNameVaild = /^.{1,10}$/.test(newName)
+  disabled.value = !(isDateVaild && isNameVaild)
 })
 
 // 如果当前选中为checkList设置group
 import { useGlobalStore } from '@/stores'
 const globalStore = useGlobalStore()
 const type = computed(() => globalStore.globalType)
-watch(type, (newVal) => {
-  if(newVal === 'checkList'){
-    selectedGroup.value = {
-      name : globalStore.globalName,
-      group: globalStore.globalId
-    }
+const globalName = computed(() => globalStore.globalName)
+// 初始化时就渲染
+const assignment = () => {
+  selectedGroup.value = {
+    name : globalStore.globalName,
+    id: globalStore.globalId
+  }
+}
+onMounted(() => {
+  if(type.value === 'checkList'){
+    assignment()
+  }
+})
+watch(globalName, () => {
+  if(type.value === 'checkList'){
+    assignment()
   }
 })
 </script>

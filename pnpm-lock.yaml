@@ -18,7 +18,7 @@ importers:
         specifier: ^2.10.2
         version: 2.10.2(vue@3.5.16)
       pinia:
-        specifier: ^3.0.1
+        specifier: ^3.0.3
         version: 3.0.3(vue@3.5.16)
       pinia-plugin-persistedstate:
         specifier: ^4.3.0

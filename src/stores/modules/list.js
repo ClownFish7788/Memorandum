@@ -63,6 +63,10 @@ export const useListStore = defineStore('list-store', () => {
       name: item.name
     })
   }
+  //提供content
+  const showContent = (id) => {
+    return list.value.find(item => item.id === id).content
+  }
   return {
     list,
     changeOrder,
@@ -71,7 +75,8 @@ export const useListStore = defineStore('list-store', () => {
     rename,
     deleteNode,
     editNode,
-    addListItem
+    addListItem,
+    showContent
   }
 },
 {

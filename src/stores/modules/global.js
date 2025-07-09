@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { useItemStore } from '@/stores/index'
+import { useListStore } from '@/stores/index'
 
 export const useGlobalStore = defineStore('global-store', () => {
   const itemStore = useItemStore()
@@ -8,19 +9,22 @@ export const useGlobalStore = defineStore('global-store', () => {
   const globalName = ref('') // 选中的内容
   const globalItemList = ref([]) // 用于存储清单
   const globalId = ref()
+  const listStore = useListStore()
 
   const getGlobalType = (item) => {
-    globalName.value = item.name
-    globalType.value = item.type
-    if(item?.type !== 'tab') {
-      const newList = itemStore.findItem(item.content.map(item => item.id))
+    if(item !== undefined && item !== null){
+      globalName.value = item.name
+      globalType.value = item.type
+      globalId.value = item.id
+    }
+    if(globalType.value !== 'tab') {
+      const content = listStore.showContent(globalId.value)
+      const newList = itemStore.findItem(content.map(item => item.id))
       // 使用splice可以保持响应式
       globalItemList.value.splice(0, globalItemList.value.length, ...newList)
-      console.log(globalItemList.value)
     }else{
       globalItemList.value.splice(0, globalItemList.value.length)
     }
-    globalId.value = item.id
   }
   return {
     globalType,
