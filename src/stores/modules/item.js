@@ -30,11 +30,23 @@ export const useItemStore = defineStore('item-store', () => {
     itemList.value.splice(itemList.value.length, 0, newItem)
     globalStore.getGlobalType()
   }
+
+  //搜索
+  const searchItem = (keyWord) => {
+    return itemList.value.filter(item => item.name.includes(keyWord) || item.remark.includes(keyWord))
+  }
+  // 删除
+  const deleteItem = (list) => {
+    const newList = itemList.value.filter(item => !item.finished && !list.includes(item.id))
+    itemList.value = newList
+  }
   return {
     itemList,
     addItem,
     findItem,
-    finishItem
+    finishItem,
+    searchItem,
+    deleteItem
   }
 },
 {

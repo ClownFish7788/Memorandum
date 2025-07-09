@@ -18,11 +18,13 @@ const handleFocus = () => {
   inp.value.classList.add('focus')
 }
 // 搜索
+import { useGlobalStore } from '@/stores'
+const globalStore = useGlobalStore()
 const listStore = useListStore()
 const searchList = ref([])
 const goSearch = () => {
   if(!search.value.trim()){
-    if(searchList.value.length <= 0){
+    if(searchList.value.length === 0){
       ElMessage({
         message: '请输入非空内容后再搜索',
         type: 'warning'
@@ -33,6 +35,7 @@ const goSearch = () => {
     return
   }
   searchList.value = listStore.searchItem(search.value)
+  globalStore.searchItem(search.value)
 }
 // 添加
 const isAdd = ref(false)

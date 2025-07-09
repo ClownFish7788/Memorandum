@@ -26,12 +26,23 @@ export const useGlobalStore = defineStore('global-store', () => {
       globalItemList.value.splice(0, globalItemList.value.length)
     }
   }
+  const searchItem = (keyWord) => {
+    globalItemList.value = itemStore.searchItem(keyWord)
+    globalName.value = '关于"' + keyWord + '"的搜索'
+    globalType.value = 'search'
+  }
+  //删除
+  const deleteFinishedItem = () => {
+    itemStore.deleteItem(globalItemList.value.filter(item => item.finished).map(item => item.id))
+  }
   return {
     globalType,
     globalName,
     globalItemList,
     getGlobalType,
-    globalId
+    globalId,
+    searchItem,
+    deleteFinishedItem
   }
 },
 {

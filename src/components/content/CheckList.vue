@@ -1,6 +1,5 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
-import { TransitionGroup } from 'vue'
 
 // 列表内容处理
 import { useGlobalStore } from '@/stores'
@@ -75,7 +74,7 @@ const sortedList = computed(() => {
           <div class="item-content">
             <p>{{ item.name }}</p>
             <p class="remark">{{ item.remark }}</p>
-            <p class="time">{{ item.date }}</p>
+            <p class="time">{{ item.date }}-{{ item.time }}</p>
           </div>
           <el-divider></el-divider>
         </div>
